@@ -1,1 +1,1 @@
-Пкть в AUTO_QA
+Путь в AUTO_QA
