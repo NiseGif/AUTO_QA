@@ -28,7 +28,7 @@ try:
     wait = WebDriverWait(browser,5)
     wait.until(EC.url_changes("http://suninjuly.github.io/registration2.html"))
 
-    # time.sleep(1)
+    time.sleep(3)
 
     # находим элемент, содержащий текст
     welcome_text_elt = browser.find_element(By.TAG_NAME, "h1")

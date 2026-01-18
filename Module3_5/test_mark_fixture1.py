@@ -26,4 +26,5 @@ class TestMainPage1():
         browser.get(link)
         browser.find_element(By.CSS_SELECTOR, ".basket-mini .btn-group > a")
 
-# проверка запуска с помощью команды 
+# проверка запуска с помощью команды ( pytest -m smoke test_mark_fixture1.py ) - может выскочить ошибка,
+# что неизвестный маркер, чтоб убрать ее, нужно маркер записать в файл pytest.ini
