@@ -1,4 +1,3 @@
-import time
 
 from .base_page import BasePage
 from .locators import ProductLocators
@@ -20,4 +19,8 @@ class ProductPage(BasePage):
         assert text_book == text_check_alerttiner, 'Error name book'
 
     def checkSumBasket(self):
-        assert self.browser.find_element(*ProductLocators.CHECK_PRICE_IN_PRODUCT_PAGE).text == self.browser.find_element(*ProductLocators.PRICE_BOOK).text, "Error Price in Page"
+        assert self.browser.find_element(*ProductLocators.CHECK_PRICE_IN_PRODUCT_PAGE).text == self.browser.find_element(*ProductLocators.PRICE_BOOK).text, \
+            "Error Price in Page"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductLocators.CHECK_PRICE_IN_PRODUCT_PAGE), "Success message is presented, but should not be"

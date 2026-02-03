@@ -27,3 +27,9 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.addToBasket()
     page.checkTextAddBook()
     page.checkSumBasket()
+
+def test_is_not_element_present(browser):
+    link = 'https://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/'
+    page = ProductPage(browser,link)
+    page.open()
+    page.should_not_be_success_message()
