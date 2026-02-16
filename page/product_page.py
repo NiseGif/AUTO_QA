@@ -6,7 +6,7 @@ class ProductPage(BasePage):
     def add_to_basket(self):
         assert self.is_element_present(*ProductLocators.ADD_TO_BASKET), 'No element #addToBasket'
         self.browser.find_element(*ProductLocators.ADD_TO_BASKET).click()
-        #self.solve_quiz_and_get_code()
+        self.solve_quiz_and_get_code()
 
     def check_text_add_book(self):
         assert self.is_element_present(*ProductLocators.CHECK_FIRST_ALERT_INNER), 'No element .alertinner'

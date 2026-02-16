@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 from page.locators import BasePageLocators
 
 
-class BasePage():
+class BasePage:
 
     def __init__(self, browser, url):
         self.browser = browser
@@ -27,8 +27,11 @@ class BasePage():
     def change_language(self,language):
         self.browser.find_element(*BasePageLocators.LANGUAGE).click()
         self.browser.find_element(By.CSS_SELECTOR,f"[value={language}]").click() #подумать над реализацией динамического локатора
+
+        assert self.is_element_present(*BasePageLocators.BUTTION_LANGUAGE), 'ERROR button_lg'
         self.browser.find_element(*BasePageLocators.BUTTION_LANGUAGE).click()
-        
+
+        assert self.is_element_present(*BasePageLocators.WEB_LANGUAGE), 'ERROR load language in site'
         web_lg = self.browser.find_element(*BasePageLocators.WEB_LANGUAGE).get_attribute("lang")
         assert web_lg == language, "Languages don't match"
 
@@ -42,9 +45,11 @@ class BasePage():
     def open(self):
         self.browser.get(self.url)
 
-    def is_element_present(self, how, what):
+    def is_element_present(self, how, what, timeout = 4):
         try:
-            self.browser.find_element(how,what) # Добавить явное ожидание
+            WebDriverWait(self.browser,timeout).\
+                until(EC.visibility_of_element_located((how,what)))
+            #self.browser.find_element(how,what) # Добавить явное ожидание
         except NoSuchElementException:
             return False
         return True
@@ -65,7 +70,8 @@ class BasePage():
 
     def is_not_element_present(self,how,what,timeout=4):
         try:
-            WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
+            WebDriverWait(self.browser, timeout).\
+                until(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return True
         return False
