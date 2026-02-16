@@ -1,11 +1,10 @@
 import math
-from asyncio import Condition
-
 from selenium.common import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException # в начале файла
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 from page.locators import BasePageLocators
 
@@ -17,14 +16,25 @@ class BasePage():
         self.url = url
         #self.browser.implicitly_wait(timeout)
 
-
     def go_to_login_page(self):
-        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK_INVALID)
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         link.click()
 
     def go_to_basket_page(self):
         link = self.browser.find_element(*BasePageLocators.BASKET)
         link.click()
+
+    def change_language(self,language):
+        self.browser.find_element(*BasePageLocators.LANGUAGE).click()
+        self.browser.find_element(By.CSS_SELECTOR,f"[value={language}]").click() #подумать над реализацией динамического локатора
+        self.browser.find_element(*BasePageLocators.BUTTION_LANGUAGE).click()
+        
+        web_lg = self.browser.find_element(*BasePageLocators.WEB_LANGUAGE).get_attribute("lang")
+        assert web_lg == language, "Languages don't match"
+
+
+    def should_be_change_language(self):
+        assert self.is_element_present(*BasePageLocators.LANGUAGE), "Change language is not available"
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
@@ -34,7 +44,7 @@ class BasePage():
 
     def is_element_present(self, how, what):
         try:
-            self.browser.find_element(how,what)
+            self.browser.find_element(how,what) # Добавить явное ожидание
         except NoSuchElementException:
             return False
         return True
