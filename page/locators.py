@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from conftest import language
 
 
 class MainPageLocators():
@@ -16,10 +17,13 @@ class ProductLocators():
     PRICE_BOOK = (By.CSS_SELECTOR, '.product_main .price_color')
     PRICE_BOOK_IN_BASKET = (By.CSS_SELECTOR, '.basket-mini')
 
-class BasePageLocators():
+class BasePageLocators:
     BASKET = (By.CSS_SELECTOR,"span.btn-group")
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
+    LANGUAGE = (By.CSS_SELECTOR, "[name='language']")
+    BUTTION_LANGUAGE = (By.CSS_SELECTOR, "button[type = 'submit']")
+    WEB_LANGUAGE = (By.CSS_SELECTOR, "html")
 
 class BasketPageLocators():
     PRODUCT_FIELD = (By.CSS_SELECTOR,"#basket_formset") #Поле товара
