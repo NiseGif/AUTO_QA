@@ -49,10 +49,16 @@ class BasePage:
         try:
             WebDriverWait(self.browser,timeout).\
                 until(EC.visibility_of_element_located((how,what)))
-            #self.browser.find_element(how,what) # Добавить явное ожидание
         except NoSuchElementException:
             return False
         return True
+
+    def wait_element(self, how, what, timeout = 4):
+        try:
+            return WebDriverWait(self.browser,timeout). \
+                until(EC.visibility_of_element_located((how,what)))
+        except NoSuchElementException:
+            return False
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
