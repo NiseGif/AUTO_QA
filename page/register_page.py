@@ -3,9 +3,15 @@ from page.locators import RegisterPageLocators
 
 
 class Register(BasePage):
-    def add_email(self, email):
+    def add_register_email(self, email):
         self.wait_element(*RegisterPageLocators.INPUT_REGISTER_EMAIL).send_keys(email)
 
-    def add_password_and_confirm(self, password):
+    def add_register_password_and_confirm(self, password):
         self.wait_element(*RegisterPageLocators.INPUT_REGISTER_PASSWORD).send_keys(password)
         self.wait_element(*RegisterPageLocators.INPUT_REGISTER_PASSWORD_CONFIRM).send_keys(password)
+
+    def add_email(self, email):
+        self.wait_element(*RegisterPageLocators.INPUT_EMAIL).send_keys(email)
+
+    def add_password_and_confirm(self, password):
+        self.wait_element(*RegisterPageLocators.INPUT_PASSWORD).send_keys(password)
